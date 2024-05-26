@@ -310,7 +310,7 @@ class ExpressionParser {
          EXTreeToken token = tokens[tIID];
          if(token.type == EXTTT_OP) {
             int tLS = token.exOperator.layerScore;
-            int tOS = getPrecedenceScore(token.exOperator.op);
+            int tOS = 12-getPrecedenceScore(token.exOperator.op);
             int tPS = token.exOperator.placeScore;
 
             #define ANSMALL \
@@ -463,29 +463,29 @@ class ExpressionParser {
    static int getPrecedenceScore(EXOP_En op) {
       static std::unordered_map<EXOP_En, int> precedenceMap = {
          // Arithmetic Operators
-         {OPA_ADD, 1},
-         {OPA_SUB, 1},
+         {OPA_ADD, 3},
+         {OPA_SUB, 3},
          {OPA_MUL, 2},
          {OPA_DIV, 2},
          {OPA_MOD, 2},
          // Comparison Operators
-         {OPC_EQUAL, 3},
-         {OPC_NOTEQ, 3},
-         {OPC_LESST, 3},
-         {OPC_GREET, 3},
-         {OPC_ELEST, 3},
-         {OPC_EGRET, 3},
+         {OPC_EQUAL, 6},
+         {OPC_NOTEQ, 6},
+         {OPC_LESST, 5},
+         {OPC_GREET, 5},
+         {OPC_ELEST, 5},
+         {OPC_EGRET, 5},
          // Logical Operators
-         {OPL_AND, 4},
-         {OPL_OR, 5},
-         {OPL_NOT, 6},
+         {OPL_AND, 10},
+         {OPL_OR, 11},
+         {OPL_NOT, 1},
          // Bitwise Operators
          {OPB_BWAND, 7},
          {OPB_BWOR, 8},
          {OPB_BWXOR, 9},
-         {OPB_BWNOT, 10},
-         {OPB_BWLSH, 11},
-         {OPB_BWRSH, 11}
+         {OPB_BWNOT, 1},
+         {OPB_BWLSH, 4},
+         {OPB_BWRSH, 4}
       };
 
       auto it = precedenceMap.find(op);
